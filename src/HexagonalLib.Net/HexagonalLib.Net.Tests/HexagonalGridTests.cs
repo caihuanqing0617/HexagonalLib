@@ -8,7 +8,7 @@ namespace HexagonalLib.Tests
     public class HexagonalGridTests
     {
         private float InscribedRadius => 0.5f;
-        private float DescribedRadius => (float) (InscribedRadius / Cos(PI / HexagonalGrid.EdgesCount));
+        private float DescribedRadius => (float) (InscribedRadius / Cos(PI / HexagonalGrid.EDGES_COUNT));
 
         [Test(Author = "Ivan Murashka", Description = "Check initial properties values for flat grids after creation")]
         [TestCase(HexagonalGridType.FlatEven)]

@@ -7,11 +7,11 @@ namespace HexagonalLib
     {
         private class MessageBuilder
         {
-            private readonly StringBuilder _message = new StringBuilder();
+            private readonly StringBuilder _Message = new();
 
             public MessageBuilder Append(string message)
             {
-                _message.AppendLine(message);
+                _Message.AppendLine(message);
                 return this;
             }
 
@@ -26,22 +26,14 @@ namespace HexagonalLib
             public MessageBuilder Append(params (string, object)[] fields)
             {
                 foreach (var (paramName, paramValue) in fields)
-                {
                     Append(paramName, paramValue);
-                }
 
                 return this;
             }
 
-            private void Append(string paramName, object paramValue)
-            {
-                _message.Append($"{paramName}={paramValue}; ");
-            }
+            private void Append(string paramName, object paramValue) => _Message.Append($"{paramName}={paramValue}; ");
 
-            public override string ToString()
-            {
-                return _message.ToString();
-            }
+            public override string ToString() => _Message.ToString();
         }
 
         public HexagonalException(string message)
@@ -64,9 +56,6 @@ namespace HexagonalLib
         {
         }
 
-        private static MessageBuilder CreateBuilder(string message)
-        {
-            return new MessageBuilder().Append(message);
-        }
+        private static MessageBuilder CreateBuilder(string message) => new MessageBuilder().Append(message);
     }
 }

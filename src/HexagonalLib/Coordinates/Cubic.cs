@@ -6,7 +6,7 @@ namespace HexagonalLib.Coordinates
     [Serializable]
     public readonly partial struct Cubic : IEquatable<Cubic>, IEqualityComparer<Cubic>
     {
-        public static Cubic Zero => new Cubic(0, 0, 0);
+        public static Cubic Zero => new(0, 0, 0);
 
         public readonly int X;
         public readonly int Y;
@@ -51,50 +51,31 @@ namespace HexagonalLib.Coordinates
             Z = rz;
         }
 
-        public static bool operator ==(Cubic coord1, Cubic coord2)
-        {
-            return (coord1.X, coord1.Y, coord1.Z) == (coord2.X, coord2.Y, coord2.Z);
-        }
+        public static bool operator ==(Cubic coord1, Cubic coord2) 
+            => (coord1.X, coord1.Y, coord1.Z) == (coord2.X, coord2.Y, coord2.Z);
 
         public static bool operator !=(Cubic coord1, Cubic coord2)
-        {
-            return (coord1.X, coord1.Y, coord1.Z) != (coord2.X, coord2.Y, coord2.Z);
-        }
+            => (coord1.X, coord1.Y, coord1.Z) != (coord2.X, coord2.Y, coord2.Z);
 
         public static Cubic operator +(Cubic coord1, Cubic coord2)
-        {
-            return new Cubic(coord1.X + coord2.X, coord1.Y + coord2.Y, coord1.Z + coord2.Z);
-        }
+            => new(coord1.X + coord2.X, coord1.Y + coord2.Y, coord1.Z + coord2.Z);
 
         public static Cubic operator +(Cubic coord, int offset)
-        {
-            return new Cubic(coord.X + offset, coord.Y + offset, coord.Z + offset);
-        }
+            => new(coord.X + offset, coord.Y + offset, coord.Z + offset);
 
         public static Cubic operator -(Cubic coord1, Cubic coord2)
-        {
-            return new Cubic(coord1.X - coord2.X, coord1.Y - coord2.Y, coord1.Z - coord2.Z);
-        }
+            => new(coord1.X - coord2.X, coord1.Y - coord2.Y, coord1.Z - coord2.Z);
 
         public static Cubic operator -(Cubic coord, int offset)
-        {
-            return new Cubic(coord.X - offset, coord.Y - offset, coord.Z - offset);
-        }
+            => new(coord.X - offset, coord.Y - offset, coord.Z - offset);
 
         public static Cubic operator *(Cubic coord, int offset)
-        {
-            return new Cubic(coord.X * offset, coord.Y * offset, coord.Z * offset);
-        }
+            => new(coord.X * offset, coord.Y * offset, coord.Z * offset);
 
         public static Cubic operator *(Cubic coord, float delta)
-        {
-            return new Cubic(coord.X * delta, coord.Y * delta, coord.Z * delta);
-        }
+            => new(coord.X * delta, coord.Y * delta, coord.Z * delta);
 
-        public bool IsValid()
-        {
-            return X + Y + Z == 0;
-        }
+        public bool IsValid() => X + Y + Z == 0;
 
         public Cubic RotateToRight()
         {
@@ -115,34 +96,16 @@ namespace HexagonalLib.Coordinates
             return cur;
         }
 
-        public override bool Equals(object obj)
-        {
-            return obj is Cubic other && Equals(other);
-        }
+        public override bool Equals(object obj) => obj is Cubic other && Equals(other);
 
-        public bool Equals(Cubic other)
-        {
-            return (X, Y, Z) == (other.X, other.Y, other.Z);
-        }
+        public bool Equals(Cubic other) => (X, Y, Z) == (other.X, other.Y, other.Z);
 
-        public bool Equals(Cubic coord1, Cubic coord2)
-        {
-            return coord1.Equals(coord2);
-        }
+        public bool Equals(Cubic coord1, Cubic coord2) => coord1.Equals(coord2);
 
-        public override int GetHashCode()
-        {
-            return (X, Y, Z).GetHashCode();
-        }
+        public override int GetHashCode() => (X, Y, Z).GetHashCode();
 
-        public int GetHashCode(Cubic coord)
-        {
-            return coord.GetHashCode();
-        }
+        public int GetHashCode(Cubic coord) => coord.GetHashCode();
 
-        public override string ToString()
-        {
-            return !IsValid() ? "C-[Invalid]" : $"C-[{X}:{Y}:{Z}]";
-        }
+        public override string ToString() => !IsValid() ? "C-[Invalid]" : $"C-[{X}:{Y}:{Z}]";
     }
 }
