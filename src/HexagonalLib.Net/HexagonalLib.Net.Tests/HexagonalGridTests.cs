@@ -1,4 +1,4 @@
-﻿using HexagonalLib.Coordinates;
+using HexagonalLib.Coordinates;
 using NUnit.Framework;
 using static System.Math;
 
@@ -10,7 +10,7 @@ namespace HexagonalLib.Tests
         private float InscribedRadius => 0.5f;
         private float DescribedRadius => (float) (InscribedRadius / Cos(PI / HexagonalGrid.EDGES_COUNT));
 
-        [Test(Author = "Ivan Murashka", Description = "Check initial properties values for flat grids after creation")]
+        [Test(Author = "Ivan Murashka", Description = "在创建平面网格后检查其初始属性值")]
         [TestCase(HexagonalGridType.FlatEven)]
         [TestCase(HexagonalGridType.FlatOdd)]
         public void FlatPropertiesTest(HexagonalGridType type)
@@ -26,7 +26,7 @@ namespace HexagonalLib.Tests
             Assert.AreEqual(grid.AngleToFirstNeighbor, 30.0f);
         }
 
-        [Test(Author = "Ivan Murashka", Description = "Check initial properties values for pointy grids after creation")]
+        [Test(Author = "Ivan Murashka", Description = "在创建点状网格后检查其初始属性值")]
         [TestCase(HexagonalGridType.PointyEven)]
         [TestCase(HexagonalGridType.PointyOdd)]
         public void PointyPropertiesTest(HexagonalGridType type)
@@ -42,7 +42,7 @@ namespace HexagonalLib.Tests
             Assert.AreEqual(grid.AngleToFirstNeighbor, 0.0f);
         }
 
-        [Test(Author = "Ivan Murashka", Description = "Check coordinate conversion from Offset")]
+        [Test(Author = "Ivan Murashka", Description = "检查偏移量下的坐标转换")]
         public void CoordinateConversionTest(
             [Values] HexagonalGridType type,
             [Values(-13, -8, 0, 15, 22)] int offsetX,
@@ -61,7 +61,7 @@ namespace HexagonalLib.Tests
             Assert.AreEqual(cubic, grid.ToCubic(axial));
         }
 
-        [Test(Author = "Ivan Murashka", Description = "Check conversion to Point2 from Offset")]
+        [Test(Author = "Ivan Murashka", Description = "检查从偏移量转换为 Point2 的操作")]
         public void PointConversionTest(
             [Values] HexagonalGridType type,
             [Values(-13, -8, 0, 15, 22)] int offsetX,
@@ -84,7 +84,7 @@ namespace HexagonalLib.Tests
             Assert.AreEqual(cubic, grid.ToCubic(fromCubic));
         }
 
-        [Test(Author = "Ivan Murashka", Description = "Check IsNeighbor methods for all coordinates types")]
+        [Test(Author = "Ivan Murashka", Description = "检查所有坐标类型的 IsNeighbor 方法")]
         public void IsNeighborTest(
             [Values] HexagonalGridType type,
             [Values(-13, -8, 0, 15, 22)] int offsetX,
@@ -107,7 +107,7 @@ namespace HexagonalLib.Tests
             Assert.IsTrue(grid.IsNeighbors(cubic, cNeighbor), $"Neighbor1={cubic}; Neighbor2={cNeighbor}; Index={neighborIndex};");
         }
 
-        [Test(Author = "Ivan Murashka", Description = "Check neighbors order for all coordinates types")]
+        [Test(Author = "Ivan Murashka", Description = "检查邻居订单，涵盖所有坐标类型")]
         public void NeighborsOrderTest(
             [Values] HexagonalGridType type,
             [Values(-13, -8, 0, 15, 22)] int offsetX,
