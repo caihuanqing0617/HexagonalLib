@@ -2,5 +2,6 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a8f0362a_002D0d97_002D42f8_002Db092_002D67122e2791e6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="RotateTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::2608E591-E33C-446A-9E95-AFED738B2512::net10.0::HexagonalLib.Tests.HexagonalMathTests.RotateTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::2608E591-E33C-446A-9E95-AFED738B2512::net10.0::HexagonalLib.Tests.HexagonalGridTests.FlatPropertiesTest(FlatEven)&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

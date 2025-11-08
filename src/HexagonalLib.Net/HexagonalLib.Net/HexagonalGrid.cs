@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using HexagonalLib.Coordinates;
 using static System.Math;
@@ -642,7 +642,8 @@ public readonly partial struct HexagonalGrid
     /// <param name="center">中心点坐标偏移量</param>
     /// <param name="radius">环形区域的半径</param>
     /// <returns>返回环形区域内的所有邻居点坐标偏移量集合</returns>
-    public IEnumerable<Offset> GetNeighborsRing(Offset center, int radius) => GetNeighborsRing(center, radius, GetNeighbor);
+    public IEnumerable<Offset> GetNeighborsRing(Offset center, int radius)
+        => GetNeighborsRing(center, radius, GetNeighbor);
 
 
     /// <summary>
@@ -713,7 +714,8 @@ public readonly partial struct HexagonalGrid
     /// <param name="center">中心点的偏移量</param>
     /// <param name="radius">搜索半径</param>
     /// <returns>返回在指定半径范围内的所有邻居偏移量的可枚举集合</returns>
-    public IEnumerable<Offset> GetNeighborsAround(Offset center, int radius) => GetNeighborsAround(center, radius, GetNeighborsRing);
+    public IEnumerable<Offset> GetNeighborsAround(Offset center, int radius)
+        => GetNeighborsAround(center, radius, GetNeighborsRing);
 
 
     /// <summary>
@@ -722,7 +724,8 @@ public readonly partial struct HexagonalGrid
     /// <param name="center">中心点的轴向坐标</param>
     /// <param name="radius">搜索半径</param>
     /// <returns>返回在指定半径范围内的所有六边形邻居的可枚举集合</returns>
-    public IEnumerable<Axial> GetNeighborsAround(Axial center, int radius) => GetNeighborsAround(center, radius, GetNeighborsRing);
+    public IEnumerable<Axial> GetNeighborsAround(Axial center, int radius)
+        => GetNeighborsAround(center, radius, GetNeighborsRing);
 
     /// <summary>
     /// 获取指定中心点周围指定半径范围内的所有六边形邻居
@@ -730,7 +733,8 @@ public readonly partial struct HexagonalGrid
     /// <param name="center">中心点的立方体坐标</param>
     /// <param name="radius">搜索半径</param>
     /// <returns>返回在指定半径范围内的所有六边形邻居的可枚举集合</returns>
-    public IEnumerable<Cubic> GetNeighborsAround(Cubic center, int radius) => GetNeighborsAround(center, radius, GetNeighborsRing);
+    public IEnumerable<Cubic> GetNeighborsAround(Cubic center, int radius)
+        => GetNeighborsAround(center, radius, GetNeighborsRing);
 
     /// <summary>
     /// 生成以指定中心为原点、指定半径范围内的所有六边形区域邻居集合（包含多层环形）
@@ -821,7 +825,8 @@ public readonly partial struct HexagonalGrid
     /// <param name="coord1">第一个坐标偏移量</param>
     /// <param name="coord2">第二个坐标偏移量</param>
     /// <returns>返回两个相邻坐标之间的中点坐标，以(x, y)元组形式表示</returns>
-    public (float x, float y) GetPointBetweenTwoNeighbours(Offset coord1, Offset coord2) => GetPointBetweenTwoNeighbours(coord1, coord2, IsNeighbors, ToPoint2);
+    public (float x, float y) GetPointBetweenTwoNeighbours(Offset coord1, Offset coord2)
+        => GetPointBetweenTwoNeighbours(coord1, coord2, IsNeighbors, ToPoint2);
 
     /// <summary>
     /// 获取两个相邻坐标点之间的中点坐标
@@ -829,7 +834,8 @@ public readonly partial struct HexagonalGrid
     /// <param name="coord1">第一个轴向坐标</param>
     /// <param name="coord2">第二个轴向坐标</param>
     /// <returns>返回两个相邻坐标点之间的中点坐标，以(x, y)元组形式表示</returns>
-    public (float x, float y) GetPointBetweenTwoNeighbours(Axial coord1, Axial coord2) => GetPointBetweenTwoNeighbours(coord1, coord2, IsNeighbors, ToPoint2);
+    public (float x, float y) GetPointBetweenTwoNeighbours(Axial coord1, Axial coord2)
+        => GetPointBetweenTwoNeighbours(coord1, coord2, IsNeighbors, ToPoint2);
 
     /// <summary>
     /// 获取两个相邻坐标点之间的中点坐标
@@ -837,7 +843,8 @@ public readonly partial struct HexagonalGrid
     /// <param name="coord1">第一个立方体坐标</param>
     /// <param name="coord2">第二个立方体坐标</param>
     /// <returns>返回两个相邻坐标点之间的中点坐标，以(x, y)元组形式表示</returns>
-    public (float x, float y) GetPointBetweenTwoNeighbours(Cubic coord1, Cubic coord2) => GetPointBetweenTwoNeighbours(coord1, coord2, IsNeighbors, ToPoint2);
+    public (float x, float y) GetPointBetweenTwoNeighbours(Cubic coord1, Cubic coord2)
+        => GetPointBetweenTwoNeighbours(coord1, coord2, IsNeighbors, ToPoint2);
 
     /// <summary>
     /// 计算两个相邻六边形边界线段的中点坐标
@@ -1017,8 +1024,10 @@ public readonly partial struct HexagonalGrid
     {
         // 使用模运算将索引限制在EDGES_COUNT范围内
         index %= EDGES_COUNT;
+
         // 处理负数索引的情况，将其转换为正数索引
-        if (index < 0) index += EDGES_COUNT;
+        if (index < 0)
+            index += EDGES_COUNT;
 
         return index;
     }
