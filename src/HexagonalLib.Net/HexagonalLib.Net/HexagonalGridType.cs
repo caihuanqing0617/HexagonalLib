@@ -1,28 +1,28 @@
-﻿namespace HexagonalLib
+﻿namespace HexagonalLib;
+
+/// <summary>
+/// 六边形网格类型的枚举定义
+/// 用于标识不同的六边形网格布局方式
+/// </summary>
+public enum HexagonalGridType : byte
 {
     /// <summary>
-    /// The typical layouts and orientations for hex grids
+    /// 水平布局，奇数行向右偏移
     /// </summary>
-    public enum HexagonalGridType : byte
-    {
-        /// <summary>
-        /// Horizontal layout shoves odd rows right [odd-r]
-        /// </summary>
-        PointyOdd,
+    PointyOdd,
 
-        /// <summary>
-        /// Horizontal layout shoves even rows right [even-r]
-        /// </summary>
-        PointyEven,
+    /// <summary>
+    /// 水平布局，偶数行向右偏移
+    /// </summary>
+    PointyEven,
 
-        /// <summary>
-        /// Vertical layout shoves odd columns down [odd-q]
-        /// </summary>
-        FlatOdd,
+    /// <summary>
+    /// 垂直布局，奇数列向下偏移
+    /// </summary>
+    FlatOdd,
 
-        /// <summary>
-        /// Vertical layout shoves even columns down [even-q]
-        /// </summary>
-        FlatEven,
-    }
+    /// <summary>
+    /// 垂直布局，偶数列向下偏移
+    /// </summary>
+    FlatEven,
 }
