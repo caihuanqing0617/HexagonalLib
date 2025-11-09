@@ -122,7 +122,7 @@ public class HexagonalGridTests
         Assert.IsTrue(grid.IsNeighbors(cubic, cNeighbor), $"Neighbor1={cubic}; Neighbor2={cNeighbor}; Index={neighborIndex};");
     }
 
-    [Test(Author = "Ivan Murashka", Description = "检查 neighbors order，涵盖所有坐标类型")]
+    [Test(Author = "Ivan Murashka", Description = "检查 NeighborsOrder，涵盖所有坐标类型")]
     public void NeighborsOrderTest(
         [Values] HexagonalGridType type,
         [Values(-13, -8, 0, 15, 22)] int offsetX,

@@ -5,7 +5,7 @@ namespace HexagonalLib.Tests
     [TestFixture(TestOf = typeof(HexagonalMath))]
     public class HexagonalMathTests
     {
-        [Test(Author = "Ivan Murashka", Description = "Check HexagonalMath.Rotate method")]
+        [Test(Author = "Ivan Murashka", Description = "检查 HexagonalMath 类中的 Rotate 方法")]
         [TestCase(0, 1, 0, 0, 1)]
         [TestCase(0, 1, 45, 0.5f, 0.5f)]
         [TestCase(0, 1, 90, 1, 0)]

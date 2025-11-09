@@ -351,7 +351,8 @@ public readonly partial struct HexagonalGrid
     /// </summary>
     /// <param name="coord">六边形的偏移坐标。</param>
     /// <returns>六边形中心点的二维坐标(X, Y)。</returns>
-    public (float X, float Y) ToPoint2(Offset coord) => ToPoint2(ToAxial(coord));
+    public (float X, float Y) ToPoint2(Offset coord)
+        => ToPoint2(ToAxial(coord));
 
     /// <summary>
     /// 将基于轴向坐标的六边形转换为其在二维空间中的中心位置
@@ -387,7 +388,8 @@ public readonly partial struct HexagonalGrid
     /// </summary>
     /// <param name="coord">六边形的立方坐标</param>
     /// <returns>二维空间中的中心位置，格式为(X, Y)</returns>
-    public (float X, float Y) ToPoint2(Cubic coord) => ToPoint2(ToAxial(coord));
+    public (float X, float Y) ToPoint2(Cubic coord)
+        => ToPoint2(ToAxial(coord));
 
     #endregion
 

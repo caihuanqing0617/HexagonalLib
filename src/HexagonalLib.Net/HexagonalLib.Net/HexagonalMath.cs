@@ -13,7 +13,7 @@ public static class HexagonalMath
         /// <summary>
         /// 绕 Z 轴顺时针旋转二维向量。
         /// </summary>
-        /// <param name="vector">要旋转的二维向量，表示为 (X, Y)。</param>
+        /// <param name="source">要旋转的二维向量，表示为 (X, Y)。</param>
         /// <param name="degrees">旋转角度（以度为单位），按顺时针方向旋转。</param>
         /// <returns>
         /// 返回旋转后的向量，类型为 (float X, float Y)。
@@ -37,7 +37,7 @@ public static class HexagonalMath
         /// <summary>
         /// 将给定二维向量缩放为单位向量（长度为 1）。
         /// </summary>
-        /// <param name="vector">要归一化的二维向量，表示为 (X, Y)。</param>
+        /// <param name="source">要归一化的二维向量，表示为 (X, Y)。</param>
         /// <returns>
         /// 返回长度为 1 的向量（单位向量），类型为 (float X, float Y)。
         /// </returns>
@@ -55,15 +55,14 @@ public static class HexagonalMath
         /// <summary>
         /// 比较两个二维向量在每个分量上是否相似（使用 <see cref="SimilarTo(float, float)"/>）。
         /// </summary>
-        /// <param name="a">第一个二维向量，表示为 (X, Y)。</param>
-        /// <param name="b">第二个二维向量，表示为 (X, Y)。</param>
+        /// <param name="sourceB">第二个二维向量，表示为 (X, Y)。</param>
         /// <returns>当且仅当两个向量的 X 分量和 Y 分量各自都与对应分量相似时返回 true。</returns>
         /// <remarks>
         /// 对向量比较使用分量级比较：分别比较 X 与 X、Y 与 Y，并且都满足 <see cref="SimilarTo(float, float)"/> 时才视为相似。
         /// 这种比较方式适合在存在浮点舍入误差时判断向量是否“足够接近”。
         /// </remarks>
-        public bool SimilarTo(in (float X, float Y) b)
-            => source.X.SimilarTo(b.X) && source.Y.SimilarTo(b.Y);
+        public bool SimilarTo(in (float X, float Y) sourceB)
+            => source.X.SimilarTo(sourceB.X) && source.Y.SimilarTo(sourceB.Y);
     }
 
 
