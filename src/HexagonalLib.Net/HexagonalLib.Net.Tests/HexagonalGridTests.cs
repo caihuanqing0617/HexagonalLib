@@ -20,9 +20,9 @@ public class HexagonalGridTests
     private float DescribedRadius => (float)(InscribedRadius / Math.Cos(Math.PI / HexagonalGrid.EDGES_COUNT));
 
     [Test(Author = "Ivan Murashka", Description = "在创建平面网格后检查其初始属性值")]
-    [TestCase(HexagonalGridType.FlatEven)]
-    [TestCase(HexagonalGridType.FlatOdd)]
-    public void FlatPropertiesTest(HexagonalGridType type)
+    [TestCase(HexGridType.FlatEven)]
+    [TestCase(HexGridType.FlatOdd)]
+    public void FlatPropertiesTest(HexGridType type)
     {
         var grid = new HexagonalGrid(type, InscribedRadius);
 
@@ -37,9 +37,9 @@ public class HexagonalGridTests
     }
 
     [Test(Author = "Ivan Murashka", Description = "在创建点状网格后检查其初始属性值")]
-    [TestCase(HexagonalGridType.PointyEven)]
-    [TestCase(HexagonalGridType.PointyOdd)]
-    public void PointyPropertiesTest(HexagonalGridType type)
+    [TestCase(HexGridType.PointyEven)]
+    [TestCase(HexGridType.PointyOdd)]
+    public void PointyPropertiesTest(HexGridType type)
     {
         var grid = new HexagonalGrid(type, InscribedRadius);
 
@@ -55,7 +55,7 @@ public class HexagonalGridTests
 
     [Test(Author = "Ivan Murashka", Description = "检查偏移量下的坐标转换")]
     public void CoordinateConversionTest(
-        [Values] HexagonalGridType type,
+        [Values] HexGridType type,
         [Values(-13, -8, 0, 15, 22)] int offsetX,
         [Values(-13, -8, 0, 15, 22)] int offsetY)
     {
@@ -76,7 +76,7 @@ public class HexagonalGridTests
 
     [Test(Author = "Ivan Murashka", Description = "检查从偏移量转换为 Point2 的操作")]
     public void PointConversionTest(
-        [Values] HexagonalGridType type,
+        [Values] HexGridType type,
         [Values(-13, -8, 0, 15, 22)] int offsetX,
         [Values(-13, -8, 0, 15, 22)] int offsetY)
     {
@@ -99,7 +99,7 @@ public class HexagonalGridTests
 
     [Test(Author = "Ivan Murashka", Description = "检查所有坐标类型的 IsNeighbor 方法")]
     public void IsNeighborTest(
-        [Values] HexagonalGridType type,
+        [Values] HexGridType type,
         [Values(-13, -8, 0, 15, 22)] int offsetX,
         [Values(-13, -8, 0, 15, 22)] int offsetY,
         [Values(-1, 0, 1, 2, 3, 4, 5, 6)] int neighborIndex)
@@ -124,7 +124,7 @@ public class HexagonalGridTests
 
     [Test(Author = "Ivan Murashka", Description = "检查 NeighborsOrder，涵盖所有坐标类型")]
     public void NeighborsOrderTest(
-        [Values] HexagonalGridType type,
+        [Values] HexGridType type,
         [Values(-13, -8, 0, 15, 22)] int offsetX,
         [Values(-13, -8, 0, 15, 22)] int offsetY,
         [Values(-1, 0, 1, 2, 3, 4, 5, 6)] int neighborIndex)

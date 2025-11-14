@@ -51,7 +51,7 @@ public readonly partial struct HexagonalGrid
     /// <summary>
     /// 网格的方向和布局类型
     /// </summary>
-    public readonly HexagonalGridType Type;
+    public readonly HexGridType Type;
 
     /// <summary>
     /// 获取当前六边形网格中，一个六边形与其右侧邻居在X轴上的偏移量。
@@ -65,11 +65,11 @@ public readonly partial struct HexagonalGrid
         {
             switch (Type)
             {
-                case HexagonalGridType.PointyOdd:
-                case HexagonalGridType.PointyEven:
+                case HexGridType.PointyOdd:
+                case HexGridType.PointyEven:
                     return InscribedRadius * 2.0f;
-                case HexagonalGridType.FlatOdd:
-                case HexagonalGridType.FlatEven:
+                case HexGridType.FlatOdd:
+                case HexGridType.FlatEven:
                     return DescribedRadius * 1.5f;
                 default:
                     throw new HexagonalException($"Can't get {nameof(HorizontalOffset)} with unexpected {nameof(Type)}", this);
@@ -89,11 +89,11 @@ public readonly partial struct HexagonalGrid
         {
             switch (Type)
             {
-                case HexagonalGridType.PointyOdd:
-                case HexagonalGridType.PointyEven:
+                case HexGridType.PointyOdd:
+                case HexGridType.PointyEven:
                     return DescribedRadius * 1.5f;
-                case HexagonalGridType.FlatOdd:
-                case HexagonalGridType.FlatEven:
+                case HexGridType.FlatOdd:
+                case HexGridType.FlatEven:
                     return InscribedRadius * 2.0f;
                 default:
                     throw new HexagonalException($"Can't get {nameof(VerticalOffset)} with unexpected {nameof(Type)}", this);
@@ -113,11 +113,11 @@ public readonly partial struct HexagonalGrid
         {
             switch (Type)
             {
-                case HexagonalGridType.PointyOdd:
-                case HexagonalGridType.PointyEven:
+                case HexGridType.PointyOdd:
+                case HexGridType.PointyEven:
                     return 0.0f;
-                case HexagonalGridType.FlatOdd:
-                case HexagonalGridType.FlatEven:
+                case HexGridType.FlatOdd:
+                case HexGridType.FlatEven:
                     return 30.0f;
                 default:
                     throw new HexagonalException($"Can't get {nameof(AngleToFirstNeighbor)} with unexpected {nameof(Type)}", this);
@@ -131,7 +131,7 @@ public readonly partial struct HexagonalGrid
     /// </summary>
     /// <param name="type">指定六边形网格的方向与布局方式。</param>
     /// <param name="radius">六边形的内切圆半径。</param>
-    public HexagonalGrid(HexagonalGridType type, float radius)
+    public HexagonalGrid(HexGridType type, float radius)
     {
         Type = type;
         InscribedRadius = radius;
@@ -151,25 +151,25 @@ public readonly partial struct HexagonalGrid
     {
         switch (Type)
         {
-            case HexagonalGridType.PointyOdd:
+            case HexGridType.PointyOdd:
             {
                 var col = coord.X + (coord.Z - (coord.Z & 1)) / 2;
                 var row = coord.Z;
                 return new Offset(col, row);
             }
-            case HexagonalGridType.PointyEven:
+            case HexGridType.PointyEven:
             {
                 var col = coord.X + (coord.Z + (coord.Z & 1)) / 2;
                 var row = coord.Z;
                 return new Offset(col, row);
             }
-            case HexagonalGridType.FlatOdd:
+            case HexGridType.FlatOdd:
             {
                 var col = coord.X;
                 var row = coord.Z + (coord.X - (coord.X & 1)) / 2;
                 return new Offset(col, row);
             }
-            case HexagonalGridType.FlatEven:
+            case HexGridType.FlatEven:
             {
                 var col = coord.X;
                 var row = coord.Z + (coord.X + (coord.X & 1)) / 2;
@@ -257,7 +257,7 @@ public readonly partial struct HexagonalGrid
         switch (Type)
         {
             // Pointy方向奇数行排列：X方向偏移需要根据Y坐标的奇偶性调整
-            case HexagonalGridType.PointyOdd:
+            case HexGridType.PointyOdd:
             {
                 var x = coord.X - (coord.Y - (coord.Y & 1)) / 2;
                 var z = coord.Y;
@@ -265,7 +265,7 @@ public readonly partial struct HexagonalGrid
                 return new Cubic(x, y, z);
             }
             // Pointy方向偶数行排列：X方向偏移需要根据Y坐标的奇偶性调整
-            case HexagonalGridType.PointyEven:
+            case HexGridType.PointyEven:
             {
                 var x = coord.X - (coord.Y + (coord.Y & 1)) / 2;
                 var z = coord.Y;
@@ -273,7 +273,7 @@ public readonly partial struct HexagonalGrid
                 return new Cubic(x, y, z);
             }
             // Flat方向奇数列排列：Z方向偏移需要根据X坐标的奇偶性调整
-            case HexagonalGridType.FlatOdd:
+            case HexGridType.FlatOdd:
             {
                 var x = coord.X;
                 var z = coord.Y - (coord.X - (coord.X & 1)) / 2;
@@ -281,7 +281,7 @@ public readonly partial struct HexagonalGrid
                 return new Cubic(x, y, z);
             }
             // Flat方向偶数列排列：Z方向偏移需要根据X坐标的奇偶性调整
-            case HexagonalGridType.FlatEven:
+            case HexGridType.FlatEven:
             {
                 var x = coord.X;
                 var z = coord.Y - (coord.X + (coord.X & 1)) / 2;
@@ -313,16 +313,16 @@ public readonly partial struct HexagonalGrid
         switch (Type)
         {
             // Pointy方向（上下尖）布局处理
-            case HexagonalGridType.PointyOdd:
-            case HexagonalGridType.PointyEven:
+            case HexGridType.PointyOdd:
+            case HexGridType.PointyEven:
             {
                 var q = (x * Sqrt3 / 3.0f - y / 3.0f) / Side;
                 var r = y * 2.0f / 3.0f / Side;
                 return new Cubic(q, -q - r, r);
             }
             // Flat方向（左右尖）布局处理
-            case HexagonalGridType.FlatOdd:
-            case HexagonalGridType.FlatEven:
+            case HexGridType.FlatOdd:
+            case HexGridType.FlatEven:
             {
                 var q = x * 2.0f / 3.0f / Side;
                 var r = (-x / 3.0f + Sqrt3 / 3.0f * y) / Side;
@@ -364,15 +364,15 @@ public readonly partial struct HexagonalGrid
         // 根据不同的网格类型计算六边形中心点的二维坐标
         switch (Type)
         {
-            case HexagonalGridType.PointyOdd:
-            case HexagonalGridType.PointyEven:
+            case HexGridType.PointyOdd:
+            case HexGridType.PointyEven:
             {
                 var x = Side * (Sqrt3 * coord.Q + Sqrt3 / 2 * coord.R);
                 var y = Side * (3.0f / 2.0f * coord.R);
                 return (x, y);
             }
-            case HexagonalGridType.FlatOdd:
-            case HexagonalGridType.FlatEven:
+            case HexGridType.FlatOdd:
+            case HexGridType.FlatEven:
             {
                 var x = Side * (3.0f / 2.0f * coord.Q);
                 var y = Side * (Sqrt3 / 2 * coord.Q + Sqrt3 * coord.R);
@@ -444,7 +444,7 @@ public readonly partial struct HexagonalGrid
         var angleDeg = 60 * edge;
 
         // 对于尖顶布局的网格，需要额外旋转30度来匹配图形方向
-        if (Type is HexagonalGridType.PointyEven or HexagonalGridType.PointyOdd)
+        if (Type is HexGridType.PointyEven or HexGridType.PointyOdd)
             angleDeg -= 30;
 
         // 获取六边形中心点坐标
@@ -474,8 +474,8 @@ public readonly partial struct HexagonalGrid
     /// 最后将源坐标与对应方向的偏移量相加，得到相邻六边形的坐标。
     /// 六个方向按照顺时针顺序排列，方向定义取决于六边形网格的类型（Pointy或Flat）。
     /// </remarks>
-    public Offset GetNeighbor(Offset coord, int neighborIndex)
-        => coord + GetNeighborsOffsets(coord)[NormalizeIndex(neighborIndex)];
+    public Offset GetNeighbor(Offset coord, HexDirectionType neighborIndex)
+        => coord + GetNeighborsOffsets(coord)[NormalizeIndex((int)neighborIndex)];
 
     /// <summary>
     /// 获取指定轴向坐标的六边形在特定方向上的相邻六边形坐标
@@ -488,8 +488,8 @@ public readonly partial struct HexagonalGrid
     /// 最后将该偏移量与源坐标相加，得到相邻六边形的坐标。
     /// 六个方向按照顺时针顺序排列，方向定义取决于六边形网格的类型（Pointy或Flat）。
     /// </remarks>
-    public Axial GetNeighbor(Axial coord, int neighborIndex)
-        => coord + _sAxialNeighbors[NormalizeIndex(neighborIndex)];
+    public Axial GetNeighbor(Axial coord, HexDirectionType neighborIndex)
+        => coord + _sAxialNeighbors[NormalizeIndex((int)neighborIndex)];
 
     /// <summary>
     /// 获取指定立体坐标的六边形在特定方向上的相邻六边形坐标
@@ -502,8 +502,8 @@ public readonly partial struct HexagonalGrid
     /// 最后将该偏移量与源坐标相加，得到相邻六边形的坐标。
     /// 六个方向按照顺时针顺序排列，方向定义取决于六边形网格的类型（Pointy或Flat）。
     /// </remarks>
-    public Cubic GetNeighbor(Cubic coord, int neighborIndex)
-        => coord + _sCubicNeighbors[NormalizeIndex(neighborIndex)];
+    public Cubic GetNeighbor(Cubic coord, HexDirectionType neighborIndex)
+        => coord + _sCubicNeighbors[NormalizeIndex((int)neighborIndex)];
 
     #endregion
 
@@ -593,7 +593,7 @@ public readonly partial struct HexagonalGrid
     /// <returns>如果是邻居则返回true，否则返回false</returns>
     public bool IsNeighbors(Axial coord1, Axial coord2)
     {
-        Func<Axial, int, Axial> getNeighbor = GetNeighbor;
+        Func<Axial, HexDirectionType, Axial> getNeighbor = GetNeighbor;
         return IsNeighbors(coord1, coord2, getNeighbor);
     }
 
@@ -619,12 +619,12 @@ public readonly partial struct HexagonalGrid
     /// 方法通过循环检查第一个坐标的所有6个邻居（使用 <paramref name="getNeighbor"/> 函数获取），
     /// 若其中任何一个邻居与第二个坐标相等，则判定为相邻关系。
     /// </remarks>
-    private bool IsNeighbors<T>(T coord1, T coord2, in Func<T, int, T> getNeighbor)
+    private bool IsNeighbors<T>(T coord1, T coord2, in Func<T, HexDirectionType, T> getNeighbor)
         where T : struct, IEqualityComparer<T>
     {
         for (var neighborIndex = 0; neighborIndex < EDGES_COUNT; neighborIndex++)
         {
-            var neighbor = getNeighbor(coord1, neighborIndex);
+            var neighbor = getNeighbor(coord1, (HexDirectionType)neighborIndex);
             if (neighbor.Equals(coord2))
             {
                 return true;
@@ -684,7 +684,7 @@ public readonly partial struct HexagonalGrid
     /// 2. 否则，将中心沿方向索引4移动<paramref name="radius"/>步，到达环形起点
     /// 3. 依次沿6个方向（0-5）各移动<paramref name="radius"/>步，收集途经的坐标形成闭合环形
     /// </remarks>
-    private static IEnumerable<T> GetNeighborsRing<T>(T center, int radius, Func<T, int, T> getNeighbor)
+    private static IEnumerable<T> GetNeighborsRing<T>(T center, int radius, Func<T, HexDirectionType, T> getNeighbor)
         where T : struct
     {
         if (radius == 0)
@@ -694,14 +694,14 @@ public readonly partial struct HexagonalGrid
         }
 
         for (var i = 0; i < radius; i++)
-            center = getNeighbor(center, 4);
+            center = getNeighbor(center, HexDirectionType.NorthWest/*4*/);
 
         for (var i = 0; i < 6; i++)
         {
             for (var j = 0; j < radius; j++)
             {
                 yield return center;
-                center = getNeighbor(center, i);
+                center = getNeighbor(center, (HexDirectionType)i);
             }
         }
     }
@@ -942,13 +942,13 @@ public readonly partial struct HexagonalGrid
     {
         switch (Type)
         {
-            case HexagonalGridType.PointyOdd:
+            case HexGridType.PointyOdd:
                 return Abs(coord.Y % 2) == 0 ? _sPointyEvenNeighbors : _sPointyOddNeighbors;
-            case HexagonalGridType.PointyEven:
+            case HexGridType.PointyEven:
                 return Abs(coord.Y % 2) == 1 ? _sPointyEvenNeighbors : _sPointyOddNeighbors;
-            case HexagonalGridType.FlatOdd:
+            case HexGridType.FlatOdd:
                 return Abs(coord.X % 2) == 0 ? _sFlatEvenNeighbors : _sFlatOddNeighbors;
-            case HexagonalGridType.FlatEven:
+            case HexGridType.FlatEven:
                 return Abs(coord.X % 2) == 1 ? _sFlatEvenNeighbors : _sFlatOddNeighbors;
             default:
                 throw new HexagonalException($"{nameof(GetNeighborsOffsets)} failed with unexpected {nameof(Type)}", this, (nameof(coord), coord));
