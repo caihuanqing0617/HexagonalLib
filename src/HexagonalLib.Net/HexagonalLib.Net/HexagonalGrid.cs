@@ -762,7 +762,7 @@ public readonly partial struct HexagonalGrid
 
     #endregion
 
-    #region GetNeighborIndex
+    #region GetNeighborDirection
 
     /// <summary>
     /// 获取指定邻居位置在邻居列表中的索引
@@ -770,7 +770,8 @@ public readonly partial struct HexagonalGrid
     /// <param name="center">中心位置的偏移量</param>
     /// <param name="neighbor">邻居位置的偏移量</param>
     /// <returns>邻居在邻居列表中的索引值</returns>
-    public byte GetNeighborIndex(Offset center, Offset neighbor) => GetNeighborIndex(center, neighbor, GetNeighbors);
+    public HexDirectionType GetNeighborDirection(Offset center, Offset neighbor)
+        => GetNeighborDirection(center, neighbor, GetNeighbors);
 
     /// <summary>
     /// 获取指定邻居位置在中心位置邻居数组中的索引
@@ -778,7 +779,8 @@ public readonly partial struct HexagonalGrid
     /// <param name="center">中心位置的轴向坐标</param>
     /// <param name="neighbor">邻居位置的轴向坐标</param>
     /// <returns>邻居位置在中心位置邻居数组中的索引值</returns>
-    public byte GetNeighborIndex(Axial center, Axial neighbor) => GetNeighborIndex(center, neighbor, GetNeighbors);
+    public HexDirectionType GetNeighborDirection(Axial center, Axial neighbor)
+        => GetNeighborDirection(center, neighbor, GetNeighbors);
 
 
     /// <summary>
@@ -787,7 +789,8 @@ public readonly partial struct HexagonalGrid
     /// <param name="center">中心位置的立方体坐标</param>
     /// <param name="neighbor">邻居位置的立方体坐标</param>
     /// <returns>邻居在邻居数组中的索引值</returns>
-    public byte GetNeighborIndex(Cubic center, Cubic neighbor) => GetNeighborIndex(center, neighbor, GetNeighbors);
+    public HexDirectionType GetNeighborDirection(Cubic center, Cubic neighbor)
+        => GetNeighborDirection(center, neighbor, GetNeighbors);
 
     /// <summary>
     /// 获取指定邻居相对于中心六边形的方向索引（0-5）
@@ -802,14 +805,14 @@ public readonly partial struct HexagonalGrid
     /// 实现逻辑：通过<paramref name="getNeighbors"/>获取中心的所有邻居集合，按顺序遍历并与<paramref name="neighbor"/>比较，
     /// 返回第一个匹配项的索引。索引顺序与六边形的六个方向一一对应（0-5）。
     /// </remarks>
-    private byte GetNeighborIndex<T>(T center, T neighbor, Func<T, IEnumerable<T>> getNeighbors)
+    private HexDirectionType GetNeighborDirection<T>(T center, T neighbor, Func<T, IEnumerable<T>> getNeighbors)
         where T : struct, IEqualityComparer<T>
     {
         byte neighborIndex = 0;
         foreach (var current in getNeighbors(center))
         {
             if (current.Equals(neighbor))
-                return neighborIndex;
+                return (HexDirectionType)neighborIndex;
 
             neighborIndex++;
         }

@@ -112,9 +112,9 @@ public class HexagonalGridTests
 
         Assert.IsTrue(cubic.IsValid(), $"Invalid cubic coordinate: {cubic.X}-{cubic.Y}-{cubic.Z}");
 
-        var oNeighbor = grid.GetNeighbor(offset, neighborIndex);
-        var aNeighbor = grid.GetNeighbor(axial, neighborIndex);
-        var cNeighbor = grid.GetNeighbor(cubic, neighborIndex);
+        var oNeighbor = grid.GetNeighbor(offset, (HexDirectionType)neighborIndex);
+        var aNeighbor = grid.GetNeighbor(axial, (HexDirectionType)neighborIndex);
+        var cNeighbor = grid.GetNeighbor(cubic, (HexDirectionType)neighborIndex);
 
         Assert.IsTrue(cNeighbor.IsValid(), $"Invalid cubic coordinate: {cNeighbor.X}-{cNeighbor.Y}-{cNeighbor.Z}");
         Assert.IsTrue(grid.IsNeighbors(offset, oNeighbor), $"Neighbor1={offset}; Neighbor2={oNeighbor}; Index={neighborIndex};");
@@ -134,9 +134,9 @@ public class HexagonalGridTests
         var axial = grid.ToAxial(offset);
         var cubic = grid.ToCubic(offset);
 
-        var oNeighbor = grid.GetNeighbor(offset, neighborIndex);
-        var aNeighbor = grid.GetNeighbor(axial, neighborIndex);
-        var cNeighbor = grid.GetNeighbor(cubic, neighborIndex);
+        var oNeighbor = grid.GetNeighbor(offset, (HexDirectionType)neighborIndex);
+        var aNeighbor = grid.GetNeighbor(axial, (HexDirectionType)neighborIndex);
+        var cNeighbor = grid.GetNeighbor(cubic, (HexDirectionType)neighborIndex);
 
         Assert.IsTrue(cNeighbor.IsValid(), $"Invalid cubic coordinate: {cNeighbor.X}-{cNeighbor.Y}-{cNeighbor.Z}");
 
